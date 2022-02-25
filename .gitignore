@@ -31,5 +31,8 @@
 *.out
 *.app
 
+# This is build directory.
+build/
 
-out
+# This is the link file to game binary directory.
+game
