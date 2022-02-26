@@ -1,5 +1,5 @@
-#ifndef LIB_GAME_LOGIC
-#define LIB_GAME_LOGIC
+#ifndef LIB_GAME_LOGIC_H
+#define LIB_GAME_LOGIC_H
 
 
 #include <dlfcn.h>
@@ -1052,6 +1052,10 @@ class ClientWorld : public World {
     virtual void SendLastHitByItemEvent(Player *, IItem *);
 };
 
+class ServerWorld {
+    void SendHealthUpdateEvent(Actor *actor, int32_t health);
+    void SendLastHitByItemEvent(Player *player, IItem *item);
+};
 class Item : public IItem {
   public:
     Item();
@@ -1347,9 +1351,9 @@ class GameAPI {
 };
 
 
-class ServerWorld {
-    void SendHealthUpdateEvent(Actor *actor, int32_t health);
-};
+// To bypass the error in class GameServerConnect
+class ThreadActionQueue {};
+class TCPSocket {};
 
 
 class ServerConnection {
@@ -1586,4 +1590,4 @@ class Magmarok : public Enemy {
     virtual void OnPrepareAttack(Actor *);
 };
 
-#endif /* LIB_GAME_LOGIC */
+#endif /* LIB_GAME_LOGIC_H */
