@@ -1,19 +1,32 @@
-CC=g++
-CFLAGS=-shared -fPIC
-OUT=out
-GAME_DIR=out
-GAME=PwnAdventure3-Linux-Shipping
+INCLUDE_DIR := src
+CC          := g++
+CFLAGS      := -shared -fPIC -I $(INCLUDE_DIR)
+
+GAME_DIR    := game
+GAME        := PwnAdventure3-Linux-Shipping
+
+LIBHACK     := libHack.so
+
+SOURCES_DIR := src
+SOURCES     := $(shell find $(SOURCES_DIR) -name '*.cpp') 
+
+BUILD_DIR   := build
+OBJECTS     := $(patsubst $(SOURCES_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
 
-libHack.so: src/libHack.cpp
-	$(CC) $< $(CFLAGS) -o $(OUT)/$@
+$(BUILD_DIR)/%.o: $(SOURCES_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all: libHack.so
+$(LIBHACK): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(BUILD_DIR)/$@
 
+all: $(LIBHACK)
 
-.ONSHELL:
+clean:
+	rm $(BUILD_DIR)/*.o
 
-run:
-	cd $(GAME_DIR); LD_PRELOAD=libHack.so ./$(GAME)
+rungame:
+	cp $(BUILD_DIR)/$(LIBHACK) $(GAME_DIR)
+	cd $(GAME_DIR); LD_PRELOAD=$(LIBHACK) ./$(GAME)
 
 .PHONY: all run
