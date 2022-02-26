@@ -36,3 +36,5 @@ build/
 
 # This is the link file to game binary directory.
 game
+
+.vscode/

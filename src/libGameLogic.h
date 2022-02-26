@@ -12,6 +12,9 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <sstream>
+#include <cstdio>
+#include <iostream>
 
 
 class IAchievement;

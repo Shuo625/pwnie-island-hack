@@ -7,8 +7,13 @@
 #include "libGameLogic.h"
 
 
-void* getAddressByName(const char* name);
-Player* getMyselfFromClientWorld();
+void* gameGetAddressByName(const char* name);
+Player* gameGetMyselfFromClientWorld();
 
+
+std::vector<std::string> stringSplit(const std::string& s, const char delimiter);
+std::string stringLStrip(const std::string& s, const char c);
+std::string stringRStrip(const std::string& s, const char c);
+std::string stringStrip(const std::string& s, const char c);
 
 #endif /* UTILS_H */
