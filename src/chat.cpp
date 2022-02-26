@@ -1,6 +1,7 @@
 #include "libGameLogic.h"
 #include "utils.h"
 #include "commands.h"
+#include "originalFunctions.c.h"
 
 
 bool _isCommand(const std::string& s) {
@@ -63,14 +64,11 @@ void _executeCommand(std::string commandStr) {
 
 // You had better not change this function. Do everything you want in _executeCommand().
 void Player::Chat(const char* text) {
-    void (*originalChat)(Player*, const char*);
-    originalChat = (void (*)(Player*, const char*))gameGetAddressByName("_ZN6Player4ChatEPKc");
-    
     std::string textStr(text);
 
     // Notice that length of text could be 0
     if (textStr.length() == 0) {
-        originalChat(this, text);
+        OriginFunctions.Player_Chat(this, text);
         return;
     }
 
@@ -79,6 +77,6 @@ void Player::Chat(const char* text) {
     if (_isCommand(textStr)) {
         _executeCommand(textStr);
     } else {
-        originalChat(this, text);
+        OriginFunctions.Player_Chat(this, text);
     }
 }
