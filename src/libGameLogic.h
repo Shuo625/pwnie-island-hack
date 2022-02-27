@@ -14,6 +14,7 @@
 #include <condition_variable>
 #include <sstream>
 #include <cstdio>
+#include <map>
 #include <iostream>
 
 

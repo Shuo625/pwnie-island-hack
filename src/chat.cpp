@@ -1,7 +1,7 @@
 #include "libGameLogic.h"
 #include "utils.h"
 #include "commands.h"
-#include "originalFunctions.c.h"
+#include "originalFunctions.h"
 
 
 bool _isCommand(const std::string& s) {
@@ -12,7 +12,7 @@ std::string _getCommandOperation(const std::string& commandStr) {
     size_t pos = 0;
     std::string operation;
 
-    while (commandStr.at(pos) != ' ') {
+    while (pos != commandStr.length() && commandStr.at(pos) != ' ') {
         pos++;
     }
 
@@ -26,8 +26,13 @@ std::vector<std::string> _getCommandArguments(const std::string& commandStr) {
     std::string argumentsStr;
     std::vector<std::string> arguments;
 
-    while (commandStr.at(pos) != ' ') {
+    while (pos != commandStr.length() && commandStr.at(pos) != ' ') {
         pos++;
+    }
+
+    // If command has no arguments
+    if (pos == commandStr.length()) {
+        return arguments;
     }
 
     argumentsStr = commandStr.substr(pos + 1);
@@ -59,6 +64,20 @@ void _executeCommand(std::string commandStr) {
         commandSetJumpHoldTime(jumpHoldTime);
 
         std::cout << "Command: /setJumpHoldTime " << jumpHoldTime << std::endl;
+    } else if (operation == "/saveLandmark") {
+        std::string& name = arguments[0];
+        commandSaveLandmark(name);
+
+        std::cout << "Command: /saveLandmark " << name << std::endl;
+    } else if (operation == "/showLandmark") {
+        commandShowLandmark();
+
+        std::cout << "Command: /showLandmark" << std::endl;
+    } else if (operation == "/teleportToLandmark") {
+        std::string& name = arguments[0];
+        commandTeleportToLandmark(name);
+
+        std::cout << "Command: /teleportToLandmark " << name << std::endl;
     }
 }
 
