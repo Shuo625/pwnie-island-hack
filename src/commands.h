@@ -6,5 +6,9 @@ void commandSetWalkSpeed(float walkSpeed);
 void commandSetJumpSpeed(float jumpSpeed);
 void commandSetJumpHoldTime(float jumpHoldTime);
 
+void commandSaveLandmark(const std::string& name);
+void commandShowLandmark();
+void commandTeleportToLandmark(const std::string& name);
+
 
 #endif /* COMMANDS_H */
