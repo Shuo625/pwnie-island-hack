@@ -25,9 +25,11 @@ Message Format: command ...args
 #### Main Game supports:
 
 - /teleport x: float y: float z: float
+- /hello name: str # for test
 
 #### Minimap Extension supports:
 
 - /savePosition name: str x: float y: float z: float
 - /updateMyselfPosition x: float y: float z: float
 - /updateEnemyPosition number: int x: float y: float z: float
+- /hello name: str # for test
