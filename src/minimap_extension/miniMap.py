@@ -5,9 +5,7 @@ from idlelib.tooltip import Hovertip
 
 def startMiniMap():
     global savedPositions
-    global clicked
     savedPositions = []
-    clicked = []
     # create window
     global root
     root= tk.Tk()
@@ -64,5 +62,5 @@ def updatePositions(arguments: list):
 
 
 def testCallback(arguments: list):
-    print(arguments)
+    #GameProtocol.call_remote_command('/teleport', arguments)
 
