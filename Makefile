@@ -13,6 +13,8 @@ SOURCES     := $(shell find $(SOURCES_DIR) -name '*.cpp')
 BUILD_DIR   := build
 OBJECTS     := $(patsubst $(SOURCES_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
+MINIMAP_EXTENSION := minimap_extension
+
 
 $(BUILD_DIR)/%.o: $(SOURCES_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -29,4 +31,7 @@ rungame:
 	cp $(BUILD_DIR)/$(LIBHACK) $(GAME_DIR)
 	cd $(GAME_DIR); LD_PRELOAD=$(LIBHACK) ./$(GAME)
 
-.PHONY: all run
+minimap:
+	cd $(SOURCES_DIR); python -m $(MINIMAP_EXTENSION)
+
+.PHONY: all clean rungame minimap
