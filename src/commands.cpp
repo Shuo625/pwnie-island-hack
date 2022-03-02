@@ -70,9 +70,9 @@ void commandTest(std::vector<std::string> arguments) {
 // /startServer
 void commandStartServer() {
     std::string host = "127.0.0.1";
-    GameProtocol *gameprotocol = new GameProtocol(host, 8080, 1024);
+    GameProtocol gameprotocol(host, 8080, 1024);
 
-    gameprotocol->registerCommand("/teleport", commandTeleportToPosition);
-    gameprotocol->registerCommand("/hello", commandTest);
-    std::thread server(gameprotocol->run());
+    gameprotocol.registerCommand("/teleport", commandTeleportToPosition);
+    gameprotocol.registerCommand("/hello", commandTest);
+    std::thread server(gameprotocol);
 }
