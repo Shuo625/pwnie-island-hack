@@ -1,17 +1,13 @@
 # sudo apt-get install python3-tk
+# sudo apt-get install idle3
 import tkinter as tk
 import socket
+from idlelib.tooltip import Hovertip
 
-# function, plot new landmark on map
-def addNewLandmark (landmarkX,landmarkY,playerX, playerY,root):
-    landmark = tk.Button(
-    root,
-    bg='black',
-    #command = teleport to this location#
-    )
 
+def placeLandmark(xCo,yCo):
     # calculating landmark position relative to player position. should devide by 1000
-    landmark.place(x=(landmarkX - playerX + 175), y=(landmarkY - playerY + 175), height=10, width=10)
+    landmark.place(x=xCo, y=yCo, height=10, width=10)
 
 
 # create window
@@ -34,23 +30,15 @@ center_y = int(screen_height/2 - window_height / 2)
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
 # create label representing the player
-player = tk.Label(
-    root,
-    bg='red',
-)
+player = tk.Label(root, bg='red')
 # place player in the centre
 player.place(x=175, y=175, height=10, width=10)
+Hovertip(player, 'You')
 
-# receive update from game
-# to be replaced by the player and the landmark current position
-playerX= 90;
-playerY= 90;
-landmarkX = 200;
-landmarkY = 200;
-# create socket
+
+# to receive update from game create socket
 #HOST = "127.0.0.1"
 #PORT = 65432
-
 #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     #s.bind((HOST, PORT))
     #s.listen()
@@ -63,8 +51,29 @@ landmarkY = 200;
                 #break
             #conn.sendall(data)
 
-# if there is an update:
-addNewLandmark(landmarkX,landmarkY, playerX, playerY,root)
+
+# we receive an update of the player's location: (x,y)
+# or a request to add a new landmark: (x,y,name,color)
+
+# testing
+playerX= 90
+playerY= 90
+landmarkX = 200
+landmarkY = 200
+name='house'
+color='black'
+
+# when receive an update of the player's location, for all landmarks, replace them realtive to the new coordinates
+# placeLandmark(landmarkX - playerX + 175, landmarkY - playerY + 175)
+
+# add a new landmark
+# create button
+landmark = tk.Button(root, bg=color,#command = teleport to this location#
+    )
+Hovertip(landmark, name)
+#place it
+placeLandmark(landmarkX - playerX + 175, landmarkY - playerY + 175)
+
 
 
 root.mainloop()
