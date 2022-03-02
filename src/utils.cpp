@@ -77,8 +77,8 @@ std::string stringJoin(const char c, const std::vector<std::string>& strs) {
     std::string rst = "";
 
     for (auto& str: strs) {
-        rst.append(str);
-        rst.append(c);
+        rst += str;
+        rst += c;
     }
 
     return stringRStrip(rst, c);
