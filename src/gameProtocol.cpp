@@ -41,7 +41,7 @@ std::string Server::reveiceMessage() {
     return message;
 }
 
-static void Server::sendMessage(const std::string& message, const std::string& host, int port) {
+void Server::sendMessage(const std::string& message, const std::string& host, int port) {
     int client_socket = socket(AF_INET, SOCK_STREAM, 0);
     
     struct sockaddr_in clientaddr;
@@ -65,7 +65,7 @@ void GameProtocol::registerCommand(const std::string& command, Command callback)
     this->commands[command] = callback;
 }
 
-void GameProtocol::run() {
+void GameProtocol::operator()() {
     std::cout << "Server starts at " << this->host << ":" << this->port << std::endl;
     this->server->startListen();
 
@@ -73,7 +73,7 @@ void GameProtocol::run() {
         std::string message = this->server->reveiceMessage();
         std::vector<std::string> message_parts = this->_parseMessage(message);
         std::string command = message_parts.at(0);
-        message_parts.erase(0);
+        message_parts.erase(message_parts.begin());
         std::vector<std::string>& arguments = message_parts;
 
         this->_runCommand(command, arguments);
@@ -89,6 +89,6 @@ std::vector<std::string> GameProtocol::_parseMessage(const std::string& message)
     return stringSplit(message, ' ');
 }
 
-static void GameProtocol::call_remote_command(const std::string& message, const std::string& host="127.0.0.1", int port=8081) {
+void GameProtocol::call_remote_command(const std::string& message, const std::string& host, int port) {
     Server::sendMessage(message, host, port);
 }

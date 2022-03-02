@@ -35,7 +35,7 @@ class GameProtocol {
   public:
     GameProtocol(const std::string& _host, int _port, int _buffer_size);
     void registerCommand(const std::string& command, Command callback);
-    void run();
+    void operator()();
 
     static void call_remote_command(const std::string& message, const std::string& host="127.0.0.1", int port=8081);
 
