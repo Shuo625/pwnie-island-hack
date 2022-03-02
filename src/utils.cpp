@@ -72,3 +72,14 @@ std::string stringStrip(const std::string& s, const char c) {
 
     return rst;
 }
+
+std::string stringJoin(const char c, const std::vector<std::string>& strs) {
+    std::string rst = "";
+
+    for (auto& str: strs) {
+        rst.append(str);
+        rst.append(c);
+    }
+
+    return stringRStrip(rst, c);
+}

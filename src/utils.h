@@ -15,5 +15,6 @@ std::vector<std::string> stringSplit(const std::string& s, const char delimiter)
 std::string stringLStrip(const std::string& s, const char c);
 std::string stringRStrip(const std::string& s, const char c);
 std::string stringStrip(const std::string& s, const char c);
+std::string stringJoin(const char c, const std::vector<std::string>& strs);
 
 #endif /* UTILS_H */
