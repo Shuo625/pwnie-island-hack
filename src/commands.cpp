@@ -28,6 +28,18 @@ void commandSaveLandmark(const std::string& name) {
     Player *myself = gameGetMyselfFromClientWorld();
     Landmark *currentLandmark = new Landmark(name, myself->GetPosition());
     landmarkSave(currentLandmark);
+
+    // Construct a message string sent to python server
+    Vector3 position = myself->GetPosition();
+
+    std::string message = "";
+    message += "/savePosition" + " ";
+    message += name + " ";
+    message += std::to_string(position.x) + " ";
+    message += std::to_string(position.y) + " ";
+    message += std::to_string(position.z);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
 }
 
 // /showLandmark
@@ -51,8 +63,10 @@ void commandTeleportToLandmark(const std::string& name) {
     myself->SetPosition(landmark->position);
 }
 
+
+// commands used by server
 void commandTeleportToPosition(std::vector<std::string> arguments) {
-    int x, y, z;
+    float x, y, z;
     x = std::stof(arguments[0]);
     y = std::stof(arguments[1]);
     z = std::stof(arguments[2]);
@@ -63,16 +77,18 @@ void commandTeleportToPosition(std::vector<std::string> arguments) {
     myself->SetPosition(position);
 }
 
-void commandTest(std::vector<std::string> arguments) {
+void commandHello(std::vector<std::string> arguments) {
     std::cout << arguments[0] << std::endl;
 }
 
 // /startServer
 void commandStartServer() {
-    std::string host = "127.0.0.1";
-    GameProtocol gameprotocol(host, 8080, 1024);
+    GameProtocol gameprotocol("127.0.0.1", 8080, 1024);
 
+    // Register supported commands
     gameprotocol.registerCommand("/teleport", commandTeleportToPosition);
-    gameprotocol.registerCommand("/hello", commandTest);
+    gameprotocol.registerCommand("/hello", commandHello);
+    
     std::thread server(gameprotocol);
+    server.detach();
 }
