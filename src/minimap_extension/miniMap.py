@@ -1,16 +1,20 @@
 # sudo apt-get install python3-tk
 # sudo apt-get install idle3
 import tkinter as tk
+from turtle import window_height, window_width
 from idlelib.tooltip import Hovertip
+from gameProtocol import GameProtocol
 
 def startMiniMap():
+    # define a global list to hold all saved places
     global savedPositions
     savedPositions = []
+
+
     # create window
     global root
     root= tk.Tk()
-    root.title('MiniMap PWN Adventure 3')
-
+    root.title('MiniMap for PWN Adventure 3')
 
     # set window size in pixels
     window_width = 350
@@ -30,7 +34,8 @@ def startMiniMap():
     # create label representing the player
     player = tk.Label(root, bg='red')
     # place player in the centre
-    player.place(x=175, y=175, height=10, width=10)
+    player.place(x=window_width/2, y=window_height/2, height=10, width=10)
+    # create tooltip to display 'You' on mouse hover
     Hovertip(player, 'You')
 
     return root
@@ -44,10 +49,16 @@ def setPosition(arguments: list):
     playerX = arguments[5]
     playerY = arguments[6]
 
-    positionButton = tk.Button(root, bg=color, command = lambda arguments = [landmarkX, landmarkY, landmarkZ] : testCallback(arguments))
+    # create a button for new landmark, teleport if clicked
+    positionButton = tk.Button(root, bg=color, command = lambda arguments = [landmarkX, landmarkY, landmarkZ] : GameProtocol.call_remote_command('/teleport', arguments))
+    # create tooltip to display place name on mouse hover
     Hovertip(positionButton, name)
-    positionButton.place(x= landmarkX - playerX + 175, y= landmarkY - playerY + 175, height= 10, width= 10)
+    # place landmark relative to the player
+    realtiveX = landmarkX - playerX + 175
+    realtiveY = landmarkX - playerY + 175
+    positionButton.place(x= realtiveX, y= realtiveY, height= 10, width= 10)
 
+    # adding landmark to the global list
     savedPositions.append([positionButton,landmarkX,landmarkY])
 
 
@@ -55,12 +66,11 @@ def updatePositions(arguments: list):
     playerX = arguments[0]
     playerY = arguments[1]
 
+    # re-place all saved landmarks based on player's new position
     for i in range(len(savedPositions)):
         landmarkX = savedPositions[i][1]
         landmarkY = savedPositions[i][2]
         savedPositions[i][0].place(x= landmarkX - playerX + 175, y= landmarkY - playerY + 175, height= 10, width= 10)
 
-
-def testCallback(arguments: list):
-    #GameProtocol.call_remote_command('/teleport', arguments)
+    
 
