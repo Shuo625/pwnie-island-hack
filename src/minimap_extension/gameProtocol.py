@@ -12,23 +12,24 @@ class GameProtocol(Thread):
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((self.host, self.port))
-        print(f'Server starts at {self.host}:{self.port}')
 
         self.commands = {}
 
     def run(self):
+        print(f'Server starts at {self.host}:{self.port}')
         self.server.listen()
-
-        sock, addr = self.server.accept()
-        with sock:
-            print(f'Connected by {addr}')
-            while True:
-                message = sock.recv(self.buffer_size)
-                if not message:
-                    break
-                message = message.decode(encoding='utf8')
-                command, arguments = self._parse_message(message)
-                self._run_command(command, arguments)
+        
+        while True:
+            sock, addr = self.server.accept()
+            with sock:
+                print(f'Connected by {addr}')
+                while True:
+                    message = sock.recv(self.buffer_size)
+                    if not message:
+                        break
+                    message = message.decode(encoding='utf8')
+                    command, arguments = self._parse_message(message)
+                    self._run_command(command, arguments)
 
     def register_command(self, command, callback: Callable):
         self.commands[command] = callback
