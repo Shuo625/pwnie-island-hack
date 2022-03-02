@@ -78,6 +78,10 @@ void _executeCommand(std::string commandStr) {
         commandTeleportToLandmark(name);
 
         std::cout << "Command: /teleportToLandmark " << name << std::endl;
+    } else if (operation == "/startServer") {
+        commandStartServer();
+
+        std::cout << "Command: /startServer" << std::endl;
     }
 }
 
