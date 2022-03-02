@@ -10,5 +10,5 @@ void commandSaveLandmark(const std::string& name);
 void commandShowLandmark();
 void commandTeleportToLandmark(const std::string& name);
 
-
+void commandStartServer();
 #endif /* COMMANDS_H */

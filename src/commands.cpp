@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "landmark.h"
 #include "originalFunctions.h"
+#include "gameProtocol.h"
 
 
 // /setWalkSpeed arg
@@ -48,4 +49,30 @@ void commandTeleportToLandmark(const std::string& name) {
     Player *myself = gameGetMyselfFromClientWorld();
     Landmark* landmark = landmarkGetByName(name);
     myself->SetPosition(landmark->position);
+}
+
+void commandTeleportToPosition(std::vector<std::string> arguments) {
+    int x, y, z;
+    x = std::stof(arguments[0]);
+    y = std::stof(arguments[1]);
+    z = std::stof(arguments[2]);
+
+    Vector3 position(x, y, z);
+
+    Player *myself = gameGetMyselfFromClientWorld();
+    myself->SetPosition(position);
+}
+
+void commandTest(std::vector<std::string> arguments) {
+    std::cout << arguments[0] << std::endl;
+}
+
+// /startServer
+void commandStartServer() {
+    std::string host = "127.0.0.1";
+    GameProtocol *gameprotocol = new GameProtocol(host, 8080, 1024);
+
+    gameprotocol->registerCommand("/teleport", commandTeleportToPosition);
+    gameprotocol->registerCommand("/hello", commandTest);
+    std::thread server(gameprotocol->run());
 }

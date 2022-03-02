@@ -28,6 +28,4 @@ Message Format: command ...args
 
 #### Minimap Extension supports:
 
-- /savePosition positionCategory: (1: landmark | 2: enemy) name: str x: float y: float z: float
-
-
+- /savePosition positionCategory: (1: landmark | 2: myself | 3: enemy) name: str x: float y: float z: float
