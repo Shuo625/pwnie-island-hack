@@ -1,76 +1,80 @@
 # sudo apt-get install python3-tk
 # sudo apt-get install idle3
+from enum import Enum
 import tkinter as tk
-from turtle import window_height, window_width
 from idlelib.tooltip import Hovertip
 from gameProtocol import GameProtocol
 
-def startMiniMap():
-    # define a global list to hold all saved places
-    global savedPositions
-    savedPositions = []
+
+class Color(Enum):
+    LANDMARK = 'blue'
+    MYSELF = 'green'
+    ENEMY = 'red'
 
 
-    # create window
-    global root
-    root= tk.Tk()
-    root.title('MiniMap for PWN Adventure 3')
+class MoveableLabel:
+    def __init__(self, x, y, color, canvas: tk.Canvas):
+        self.x = x
+        self.y = y
+        self.canvas = canvas
+        self.label = canvas.create_rectangle(x, y, x + 10, y + 10, fill=color)
 
-    # set window size in pixels
-    window_width = 350
-    window_height = 350
+    def move(self, newX, newY):
+        self.canvas.move(self.label, newX - self.x, newY - self.y)
+        self.canvas.update()
+        self.x = newX
+        self.y = newY
 
-    # get the screen dimension
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+class MiniMap:
+    def __init__(self, window_width=1000, window_height=1000, title='MiniMap for PWN Adventure 3') -> None:
+        self.root = tk.Tk()
+        self.root.title(title)
 
-    # find the center point
-    center_x = int(screen_width/2 - window_width / 2)
-    center_y = int(screen_height/2 - window_height / 2)
+        self.window_width = window_width
+        self.window_height = window_height
+        
+        self.gamemap_width = 80000
+        self.gamemap_height = 80000
 
-    # set the position of the window to the center of the screen
-    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+        self.zoom = self.gamemap_width / self.window_width
 
-    # create label representing the player
-    player = tk.Label(root, bg='red')
-    # place player in the centre
-    player.place(x=window_width/2, y=window_height/2, height=10, width=10)
-    # create tooltip to display 'You' on mouse hover
-    Hovertip(player, 'You')
+        # set the position of the window to the center of the screen
+        self.root.geometry(f'{window_width}x{window_height}')
 
-    return root
+        self.canvas = tk.Canvas(self.root, width=self.window_width, height=self.window_height)
+        self.canvas.pack()
 
-def setPosition(arguments: list):
-    name = arguments[0]
-    color = arguments[1]
-    landmarkX = arguments[2]
-    landmarkY = arguments[3]
-    landmarkZ = arguments[4]
-    playerX = arguments[5]
-    playerY = arguments[6]
+        self.moveable_labels = {}
 
-    # create a button for new landmark, teleport if clicked
-    positionButton = tk.Button(root, bg=color, command = lambda arguments = [landmarkX, landmarkY, landmarkZ] : GameProtocol.call_remote_command('/teleport', arguments))
-    # create tooltip to display place name on mouse hover
-    Hovertip(positionButton, name)
-    # place landmark relative to the player
-    realtiveX = landmarkX - playerX + 175
-    realtiveY = landmarkX - playerY + 175
-    positionButton.place(x= realtiveX, y= realtiveY, height= 10, width= 10)
+    def drawLandmark(self, name, x, y, z):
+        def callback():
+            arguments = [x, y, z]
+            GameProtocol.call_remote_command('/teleport', arguments)
+        
+        button = tk.Button(self.root, bg=Color.LANDMARK, command=callback)
+        Hovertip(button, name)
 
-    # adding landmark to the global list
-    savedPositions.append([positionButton,landmarkX,landmarkY])
+        relativeX, relativeY = self._calculateRelativePosition(x, y)
+        button.place(x=relativeX, y=relativeY, height=10, width=10)
+
+    def updateMyselfPosition(self, x, y, z):
+        relativeX, relativeY = self._calculateRelativePosition(x, y)
+        if 'myself' not in self.moveable_labels.keys():
+            self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, Color.MYSELF, self.canvas)
+        else:
+            self.moveable_labels['myself'].move(relativeX, relativeY)
+
+    def start(self):
+        self.root.mainloop()
+
+    def _calculateRelativePosition(self, x, y):
+        relativeX = int((x + self.gamemap_width) / self.zoom)
+        relativeY = int((y + self.gamemap_height) / self.zoom)
+
+        return relativeX, relativeY
 
 
-def updatePositions(arguments: list):
-    playerX = arguments[0]
-    playerY = arguments[1]
+minimap = MiniMap()
 
-    # re-place all saved landmarks based on player's new position
-    for i in range(len(savedPositions)):
-        landmarkX = savedPositions[i][1]
-        landmarkY = savedPositions[i][2]
-        savedPositions[i][0].place(x= landmarkX - playerX + 175, y= landmarkY - playerY + 175, height= 10, width= 10)
 
-    
-
+def commandSaveLandmark()
