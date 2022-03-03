@@ -1,15 +1,15 @@
 # sudo apt-get install python3-tk
 # sudo apt-get install idle3
-from enum import Enum
 import tkinter as tk
 from idlelib.tooltip import Hovertip
-from gameProtocol import GameProtocol
+from .gameProtocol import GameProtocol
 
 
-class Color(Enum):
-    LANDMARK = 'blue'
-    MYSELF = 'green'
-    ENEMY = 'red'
+Color = {
+    'LANDMARK': 'blue',
+    'MYSELF': 'green',
+    'ENEMY': 'red'
+}
 
 
 class MoveableLabel:
@@ -51,7 +51,7 @@ class MiniMap:
             arguments = [x, y, z]
             GameProtocol.call_remote_command('/teleport', arguments)
         
-        button = tk.Button(self.root, bg=Color.LANDMARK, command=callback)
+        button = tk.Button(self.root, bg=Color['LANDMARK'], command=callback)
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
@@ -60,7 +60,7 @@ class MiniMap:
     def updateMyselfPosition(self, x, y, z):
         relativeX, relativeY = self._calculateRelativePosition(x, y)
         if 'myself' not in self.moveable_labels.keys():
-            self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, Color.MYSELF, self.canvas)
+            self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, Color['MYSELF'], self.canvas)
         else:
             self.moveable_labels['myself'].move(relativeX, relativeY)
 
