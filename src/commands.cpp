@@ -63,6 +63,13 @@ void commandTeleportToLandmark(const std::string& name) {
     myself->SetPosition(landmark->position);
 }
 
+// /printPosition
+void commandPrintPosition() {
+    Player *myself = gameGetMyselfFromClientWorld();
+    Vector3 position = myself->GetPosition();
+    std::cout << "Current position " << position.x << " " << position.y << " " << position.z << std::endl;
+}
+
 
 // commands used by server
 void commandTeleportToPosition(std::vector<std::string> arguments) {

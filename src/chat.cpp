@@ -51,37 +51,33 @@ void _executeCommand(std::string commandStr) {
 
     if (operation == "/setWalkSpeed") {
         float walkSpeed = std::stof(arguments[0]);
-        commandSetWalkSpeed(walkSpeed);
-
         std::cout << "Command: /setWalkSpeed " << walkSpeed << std::endl;
+        commandSetWalkSpeed(walkSpeed);
     } else if (operation == "/setJumpSpeed") {
         float jumpSpeed = std::stof(arguments[0]);
-        commandSetJumpSpeed(jumpSpeed);
-
         std::cout << "Command: /setJumpSpeed " << jumpSpeed << std::endl;
+        commandSetJumpSpeed(jumpSpeed);
     } else if (operation == "/setJumpHoldTime") {
         float jumpHoldTime = std::stof(arguments[0]);
-        commandSetJumpHoldTime(jumpHoldTime);
-
         std::cout << "Command: /setJumpHoldTime " << jumpHoldTime << std::endl;
+        commandSetJumpHoldTime(jumpHoldTime);
     } else if (operation == "/saveLandmark") {
         std::string& name = arguments[0];
-        commandSaveLandmark(name);
-
         std::cout << "Command: /saveLandmark " << name << std::endl;
+        commandSaveLandmark(name);
     } else if (operation == "/showLandmark") {
-        commandShowLandmark();
-
         std::cout << "Command: /showLandmark" << std::endl;
+        commandShowLandmark();
     } else if (operation == "/teleportToLandmark") {
         std::string& name = arguments[0];
-        commandTeleportToLandmark(name);
-
         std::cout << "Command: /teleportToLandmark " << name << std::endl;
+        commandTeleportToLandmark(name);
     } else if (operation == "/startServer") {
-        commandStartServer();
-
         std::cout << "Command: /startServer" << std::endl;
+        commandStartServer();
+    } else if (operation == "/printPosition") {
+        std::cout << "Command: /printPosition" << std::endl;
+        commandPrintPosition();
     }
 }
 
