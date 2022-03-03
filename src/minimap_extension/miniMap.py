@@ -26,7 +26,7 @@ class MoveableLabel:
         self.y = newY
 
 class MiniMap:
-    def __init__(self, window_width=1000, window_height=1000, title='MiniMap for PWN Adventure 3') -> None:
+    def __init__(self, window_width=800, window_height=800, title='MiniMap for PWN Adventure 3') -> None:
         self.root = tk.Tk()
         self.root.title(title)
 
@@ -36,7 +36,7 @@ class MiniMap:
         self.gamemap_width = 80000
         self.gamemap_height = 80000
 
-        self.zoom = self.gamemap_width / self.window_width
+        self.zoom = self.gamemap_width * 2 / self.window_width
 
         # set the position of the window to the center of the screen
         self.root.geometry(f'{window_width}x{window_height}')

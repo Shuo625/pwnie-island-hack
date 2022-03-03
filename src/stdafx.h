@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <map>
 #include <iostream>
+#include <unistd.h>
 
 
 #endif /* STDAFX_H */

@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "libGameLogic.h"
 #include "utils.h"
 #include "landmark.h"
@@ -89,6 +91,26 @@ void commandHello(std::vector<std::string> arguments) {
     std::cout << arguments[0] << std::endl;
 }
 
+// /updateMyselfPosition
+void updateMyselfPosition() {
+    int SLEEP_TIME = 1500;
+
+    while (true) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
+        Player *myself = gameGetMyselfFromClientWorld();
+        Vector3 position = myself->GetPosition();
+        
+        std::string message = "/updateMyselfPosition ";
+        message += std::to_string(position.x);
+        message += " ";
+        message += std::to_string(position.y);
+        message += " ";
+        message += std::to_string(position.z);
+
+        GameProtocol::call_remote_command(message);
+    }
+}
+
 // /startServer
 void commandStartServer() {
     GameProtocol gameprotocol("127.0.0.1", 8080, 1024);
@@ -99,4 +121,7 @@ void commandStartServer() {
     
     std::thread server(gameprotocol);
     server.detach();
+
+    std::thread t(updateMyselfPosition);
+    t.detach();
 }

@@ -17,7 +17,7 @@ class GameProtocol(Thread):
 
     def run(self):
         print(f'Server starts at {self.host}:{self.port}')
-        self.server.listen()
+        self.server.listen(20)
         
         while True:
             sock, addr = self.server.accept()
@@ -28,11 +28,14 @@ class GameProtocol(Thread):
                     if not message:
                         break
                     message = message.decode(encoding='utf8')
-                    command, arguments = self._parse_message(message)
-                    self._run_command(command, arguments)
+                    self._execute_task(message);
 
     def register_command(self, command, callback: Callable):
         self.commands[command] = callback
+
+    def _execute_task(self, message: str):
+        command, arguments = self._parse_message(message)
+        self._run_command(command, arguments)
 
     def _run_command(self, command: str, arguments: list):
         if command not in self.commands.keys():

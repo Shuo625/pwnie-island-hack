@@ -36,6 +36,8 @@ std::string Server::reveiceMessage() {
     char buffer[this->buffer_size];
     recv(sock, buffer, this->buffer_size, 0);
 
+    close(sock);
+
     std::string message(buffer);
 
     return message;
@@ -51,6 +53,8 @@ void Server::sendMessage(const std::string& message, const std::string& host, in
 
     connect(client_socket, (struct sockaddr *)&clientaddr, sizeof(clientaddr));
     send(client_socket, message.c_str(), message.length(), 0);
+
+    close(client_socket);
 }
 
 
