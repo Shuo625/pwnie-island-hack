@@ -7,5 +7,14 @@ def commandHello(arguments: list):
 
 
 def commandSaveLandmark(arguments: list):
-    minimap.drawLandmark(arguments[0], strToFloatToInt(arguments[1]), strToFloatToInt(arguments[2]), strToFloatToInt(arguments[3]))
+    minimap.drawLandmark(arguments[0], 
+                         strToFloatToInt(arguments[1]), 
+                         strToFloatToInt(arguments[2]), 
+                         strToFloatToInt(arguments[3]))
+
+
+def commandUpdateMyselfPosition(arguments: list):
+    minimap.updateMyselfPosition(strToFloatToInt(arguments[0]), 
+                                 strToFloatToInt(arguments[1]), 
+                                 strToFloatToInt(arguments[2]))
 

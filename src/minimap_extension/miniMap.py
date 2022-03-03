@@ -46,7 +46,7 @@ class MiniMap:
 
         self.moveable_labels = {}
 
-    def drawLandmark(self, name, x, y, z):
+    def drawLandmark(self, name, x: int, y: int, z: int):
         def callback():
             arguments = [x, y, z]
             GameProtocol.call_remote_command('/teleport', arguments)
@@ -57,7 +57,7 @@ class MiniMap:
         relativeX, relativeY = self._calculateRelativePosition(x, y)
         button.place(x=relativeX, y=relativeY, height=10, width=10)
 
-    def updateMyselfPosition(self, x, y, z):
+    def updateMyselfPosition(self, x: int, y: int, z: int):
         relativeX, relativeY = self._calculateRelativePosition(x, y)
         if 'myself' not in self.moveable_labels.keys():
             self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, Color['MYSELF'], self.canvas)
