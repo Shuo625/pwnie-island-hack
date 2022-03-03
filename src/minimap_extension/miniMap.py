@@ -75,6 +75,3 @@ class MiniMap:
 
 
 minimap = MiniMap()
-
-
-def commandSaveLandmark()
