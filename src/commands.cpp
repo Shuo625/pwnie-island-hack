@@ -33,7 +33,7 @@ void commandSaveLandmark(const std::string& name) {
     Vector3 position = myself->GetPosition();
 
     std::string message = "";
-    message += "/savePosition" + " ";
+    message += "/saveLandmark" + " ";
     message += name + " ";
     message += std::to_string(position.x) + " ";
     message += std::to_string(position.y) + " ";
