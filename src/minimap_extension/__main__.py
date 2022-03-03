@@ -1,18 +1,14 @@
 from .gameProtocol import GameProtocol
-from .testCommand import commandHello
-from .startMiniMap import startMiniMap
+from .commands import commandHello, commandSaveLandmark
+from .miniMap import minimap
+
 
 if __name__ == '__main__':
     gameProtocol = GameProtocol()
 
     gameProtocol.register_command(command='/hello', callback=commandHello)
+    gameProtocol.register_command(command='/saveLandmark', callback=commandSaveLandmark)
+    
     gameProtocol.start()
 
-    x = input()
-    print(f'{x} and main thread ex')
-
-    root = startMiniMap()
-    root.mainloop()
-    
-    gameProtocol.register_command(command='/saveLandmark', callback=saveLandmark)
-
+    minimap.start()
