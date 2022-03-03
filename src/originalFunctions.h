@@ -7,6 +7,7 @@
 
 struct OriginFunctions {
     void (*Player_Chat)(Player*, const char*);
+    void (*World_Tick)(float);
 };
 
 extern struct OriginFunctions OriginFunctions;
