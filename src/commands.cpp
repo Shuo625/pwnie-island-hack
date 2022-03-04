@@ -73,6 +73,34 @@ void commandPrintPosition() {
     std::cout << "Current position " << position.x << " " << position.y << " " << position.z << std::endl;
 }
 
+// /showEggs
+/*void commandShowEggs() {
+
+    if (eggs == NULL){
+    Player *myself = gameGetMyselfFromClientWorld();
+    int i = 0;
+    eggs = new Vector3[20];
+    
+        // loop over all actors in the world 
+        for (ActorRef<IActor> _iactor : world-> m_actors){
+            Actor* actor = ((Actor*)(_iactor.m_object));
+            Vector3 pos = actor->GetPosition();
+
+            if (ItemPickup* itemPickup = dynamic_cast<ItemPickup*>(actor)){
+            eggs[i++] = Vector3(pos.x, pos.y, pos.z);
+            } 
+        }
+
+    }
+
+    Vector3 egg = eggs[currentEgg];
+    if (egg.x = 0.0f && egg.y == 0.0f && egg.z == 0.0f){
+        printf()
+    }
+
+} */
+
+
 
 // commands used by server
 void commandTeleportToPosition(std::vector<std::string> arguments) {
