@@ -79,6 +79,10 @@ void _executeCommand(std::string commandStr) {
         std::cout << "Command: /printPosition" << std::endl;
         commandPrintPosition();
     }
+    else if (operation == "/showEggs") {
+        std::cout << "Command: /showEggs" << std::endl;
+        commandShowEggs();
+    }
 }
 
 // You had better not change this function. Do everything you want in _executeCommand().
