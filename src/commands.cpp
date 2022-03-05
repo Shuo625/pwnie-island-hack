@@ -74,31 +74,110 @@ void commandPrintPosition() {
 }
 
 // /showEggs
-/*void commandShowEggs() {
+void commandShowEggs() {
 
-    if (eggs == NULL){
-    Player *myself = gameGetMyselfFromClientWorld();
-    int i = 0;
-    eggs = new Vector3[20];
+    // Locations of the eggs were aquired by investigating positions of all actor objects, an egg is an actor
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'First Egg' + " ";
+    message += std::to_string(11604.00) + " ";
+    message += std::to_string(-13131.00) + " ";
+    message += std::to_string(411.00);
     
-        // loop over all actors in the world 
-        for (ActorRef<IActor> _iactor : world-> m_actors){
-            Actor* actor = ((Actor*)(_iactor.m_object));
-            Vector3 pos = actor->GetPosition();
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
 
-            if (ItemPickup* itemPickup = dynamic_cast<ItemPickup*>(actor)){
-            eggs[i++] = Vector3(pos.x, pos.y, pos.z);
-            } 
-        }
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Second Egg' + " ";
+    message += std::to_string(-72667.00) + " ";
+    message += std::to_string(-53567.00) + " ";
+    message += std::to_string(1645.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
 
-    }
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Third Egg' + " ";
+    message += std::to_string(-25045.00) + " ";
+    message += std::to_string(-18085.00) + " ";
+    message += std::to_string(260.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
 
-    Vector3 egg = eggs[currentEgg];
-    if (egg.x = 0.0f && egg.y == 0.0f && egg.z == 0.0f){
-        printf()
-    }
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Fourth Egg' + " ";
+    message += std::to_string(60453.00) + " ";
+    message += std::to_string(-17409.00) + " ";
+    message += std::to_string(2939.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
 
-} */
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Fifth Egg' + " ";
+    message += std::to_string(48404.00) + " ";
+    message += std::to_string(28117.00) + " ";
+    message += std::to_string(704.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Sixth Egg' + " ";
+    message += std::to_string(65225.00) + " ";
+    message += std::to_string(-5740.00) + " ";
+    message += std::to_string(4928.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Seventh Egg' + " ";
+    message += std::to_string(-51570.00) + " ";
+    message += std::to_string(-61215.00) + " ";
+    message += std::to_string(5020.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Eighth Egg' + " ";
+    message += std::to_string(24512.00) + " ";
+    message += std::to_string(69682.00) + " ";
+    message += std::to_string(2659.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+    // Construct a message string sent to python server
+    std::string message = "";
+    message += "/saveLandmark";
+    message += " ";
+    message += 'Last Egg' + " ";
+    message += std::to_string(-2778.00) + " ";
+    message += std::to_string(-11035.00) + " ";
+    message += std::to_string(10504.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+
+}
 
 
 
