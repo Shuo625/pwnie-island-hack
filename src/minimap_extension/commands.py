@@ -12,6 +12,11 @@ def commandSaveLandmark(arguments: list):
                          strToFloatToInt(arguments[2]), 
                          strToFloatToInt(arguments[3]))
 
+def commandShowEggs(arguments: list):
+    minimap.drawEgg(arguments[0], 
+                         strToFloatToInt(arguments[1]), 
+                         strToFloatToInt(arguments[2]), 
+                         strToFloatToInt(arguments[3]))
 
 def commandUpdateMyselfPosition(arguments: list):
     minimap.updateMyselfPosition(strToFloatToInt(arguments[0]), 

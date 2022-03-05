@@ -79,7 +79,7 @@ void commandShowEggs() {
     // Locations of the eggs were aquired by investigating positions of all actor objects, an egg is an actor
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'First Egg' + " ";
     message += std::to_string(11604.00) + " ";
@@ -90,7 +90,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Second Egg' + " ";
     message += std::to_string(-72667.00) + " ";
@@ -101,7 +101,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Third Egg' + " ";
     message += std::to_string(-25045.00) + " ";
@@ -112,7 +112,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Fourth Egg' + " ";
     message += std::to_string(60453.00) + " ";
@@ -123,7 +123,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Fifth Egg' + " ";
     message += std::to_string(48404.00) + " ";
@@ -134,7 +134,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Sixth Egg' + " ";
     message += std::to_string(65225.00) + " ";
@@ -145,7 +145,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Seventh Egg' + " ";
     message += std::to_string(-51570.00) + " ";
@@ -156,7 +156,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Eighth Egg' + " ";
     message += std::to_string(24512.00) + " ";
@@ -167,7 +167,7 @@ void commandShowEggs() {
 
     // Construct a message string sent to python server
     std::string message = "";
-    message += "/saveLandmark";
+    message += "/showEggs";
     message += " ";
     message += 'Last Egg' + " ";
     message += std::to_string(-2778.00) + " ";

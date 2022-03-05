@@ -11,6 +11,11 @@ Color = {
     'ENEMY': 'red'
 }
 
+IconImage = {
+    'LANDMARK': './imgs/landmark.png',
+    'EGG': './imgs/egg.png'
+}
+
 
 class MoveableLabel:
     def __init__(self, x, y, color, canvas: tk.Canvas):
@@ -51,11 +56,26 @@ class MiniMap:
             arguments = [x, y, z]
             GameProtocol.call_remote_command('/teleport', arguments)
         
-        button = tk.Button(self.root, bg=Color['LANDMARK'], command=callback)
+        img = tk.PhotoImage(file = IconImage['LANDMARK'])
+        smallImg = img.subsample(10,10)
+        button = tk.Button(self.root, image=smallImg, command=callback)
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
         button.place(x=relativeX, y=relativeY, height=10, width=10)
+
+    def drawEgg(self, name, x: int, y: int, z: int):
+        def callback():
+            arguments = [x, y, z]
+            GameProtocol.call_remote_command('/teleport', arguments)
+        
+        img = tk.PhotoImage(file = IconImage['EGG'])
+        smallImg = img.subsample(10,10)
+        button = tk.Button(self.root, image=smallImg, command=callback)
+        Hovertip(button, name)
+
+        relativeX, relativeY = self._calculateRelativePosition(x, y)
+        button.place(x=relativeX, y=relativeY, height=10, width=10) 
 
     def updateMyselfPosition(self, x: int, y: int, z: int):
         relativeX, relativeY = self._calculateRelativePosition(x, y)
@@ -68,10 +88,12 @@ class MiniMap:
         self.root.mainloop()
 
     def _calculateRelativePosition(self, x, y):
-        relativeX = int((x + self.gamemap_width) / self.zoom)
-        relativeY = int((y + self.gamemap_height) / self.zoom)
+        relativeX = int((x + self.gamemap_width)/2 / self.zoom)
+        relativeY = int((y + self.gamemap_height)/2 / self.zoom)
 
         return relativeX, relativeY
 
 
 minimap = MiniMap()
+
+
