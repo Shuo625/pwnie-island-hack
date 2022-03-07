@@ -18,16 +18,20 @@ Color = {
 
 IconImage = {
     'LANDMARK': os.path.join(DIR, 'imgs/landmark.png'),
-    'EGG': os.path.join(DIR, 'imgs/egg.png')
+    'EGG': os.path.join(DIR, 'imgs/egg.png'),
+    'BACKGROUND': os.path.join(DIR, 'imgs/map.png'),
+    'MYSELF': os.path.join(DIR, 'imgs/mario.png')
 }
 
 
 class MoveableLabel:
-    def __init__(self, x, y, color, canvas: tk.Canvas):
+    def __init__(self, x, y, img_path, canvas: tk.Canvas):
         self.x = x
         self.y = y
         self.canvas = canvas
-        self.label = canvas.create_rectangle(x, y, x + 10, y + 10, fill=color)
+        self.img = tk.PhotoImage(img_path)
+        self.img = self.img.subsample(30, 30)
+        self.label = canvas.create_image(x, y, image=self.img)
 
     def move(self, newX, newY):
         self.canvas.move(self.label, newX - self.x, newY - self.y)
@@ -36,12 +40,13 @@ class MoveableLabel:
         self.y = newY
 
 class MiniMap:
-    def __init__(self, window_width=800, window_height=800, title='MiniMap for PWN Adventure 3') -> None:
+    def __init__(self, title='MiniMap for PWN Adventure 3') -> None:
         self.root = tk.Tk()
         self.root.title(title)
 
-        self.window_width = window_width
-        self.window_height = window_height
+        background_img = tk.PhotoImage(file=IconImage['BACKGROUND'])
+        self.window_width = background_img.width()
+        self.window_height = background_img.height()
         
         self.gamemap_width = 80000
         self.gamemap_height = 80000
@@ -49,15 +54,17 @@ class MiniMap:
         self.zoom = self.gamemap_width * 2 / self.window_width
 
         # set the position of the window to the center of the screen
-        self.root.geometry(f'{window_width}x{window_height}')
+        self.root.geometry(f'{self.window_width}x{self.window_height}')
 
         self.canvas = tk.Canvas(self.root, width=self.window_width, height=self.window_height)
         self.canvas.pack()
 
-        self.moveable_labels = {}
+        # Add background after canvas to show background above canvas
+        backgraound = tk.Label(self.root, image=background_img)
+        backgraound.image = background_img
+        backgraound.place(x=0, y=0, relheight=1, relwidth=1)
 
-        # Just to add an extra reference to avoid img from being destoried
-        self.imgs = []
+        self.moveable_labels = {}
 
     def drawLandmark(self, name, x: int, y: int, z: int):
         def callback():
@@ -68,6 +75,8 @@ class MiniMap:
         smallImg = img.subsample(40,40)
         self.imgs.append(smallImg)
         button = tk.Button(self.root, image=smallImg, command=callback)
+        # Add a reference as an attribute to avoid img from being destoried by gc
+        button.image = smallImg
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
@@ -80,8 +89,9 @@ class MiniMap:
         
         img = tk.PhotoImage(file = IconImage['EGG'])
         smallImg = img.subsample(40, 40)
-        self.imgs.append(smallImg)
         button = tk.Button(self.root, image=smallImg, command=callback)
+        # Add a reference as an attribute to avoid img from being destoried by gc
+        button.image = smallImg
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
