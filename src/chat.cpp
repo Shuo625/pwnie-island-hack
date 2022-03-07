@@ -78,6 +78,9 @@ void _executeCommand(std::string commandStr) {
     } else if (operation == "/printPosition") {
         std::cout << "Command: /printPosition" << std::endl;
         commandPrintPosition();
+    } else if (operation == "/teleportToPosition") {
+        std::cout << "Command: /teleportToPosition " << arguments[0] << " " << arguments[1] << " " << arguments[2] << std::endl;
+        commandTeleportToPosition(arguments);
     }
     else if (operation == "/showEggs") {
         std::cout << "Command: /showEggs" << std::endl;

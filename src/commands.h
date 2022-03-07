@@ -11,6 +11,7 @@ void commandShowLandmark();
 void commandTeleportToLandmark(const std::string& name);
 void commandPrintPosition();
 void commandShowEggs();
+void commandTeleportToPosition(std::vector<std::string> arguments);
 
 void commandStartServer();
 #endif /* COMMANDS_H */
