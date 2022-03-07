@@ -30,6 +30,7 @@ Message Format: command ...args
 #### Minimap Extension supports:
 
 - /saveLandmark name: str x: float y: float z: float
+- /showEggs name: str x: float y: float z: float
 - /updateMyselfPosition x: float y: float z: float
 - /updateEnemyPosition number: int x: float y: float z: float
 - /hello name: str # for test
