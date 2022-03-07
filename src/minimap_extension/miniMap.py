@@ -56,18 +56,22 @@ class MiniMap:
 
         self.moveable_labels = {}
 
+        # Just to add an extra reference to avoid img from being destoried
+        self.imgs = []
+
     def drawLandmark(self, name, x: int, y: int, z: int):
         def callback():
             arguments = [x, y, z]
             GameProtocol.call_remote_command('/teleport', arguments)
-        
-        img = tk.PhotoImage(file = IconImage['LANDMARK'])
-        smallImg = img.subsample(10,10)
+
+        img = tk.PhotoImage(file=IconImage['LANDMARK'])
+        smallImg = img.subsample(40,40)
+        self.imgs.append(smallImg)
         button = tk.Button(self.root, image=smallImg, command=callback)
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
-        button.place(x=relativeX, y=relativeY, height=10, width=10)
+        button.place(x=relativeX, y=relativeY)
 
     def drawEgg(self, name, x: int, y: int, z: int):
         def callback():
@@ -75,12 +79,13 @@ class MiniMap:
             GameProtocol.call_remote_command('/teleport', arguments)
         
         img = tk.PhotoImage(file = IconImage['EGG'])
-        smallImg = img.subsample(10,10)
+        smallImg = img.subsample(40, 40)
+        self.imgs.append(smallImg)
         button = tk.Button(self.root, image=smallImg, command=callback)
         Hovertip(button, name)
 
         relativeX, relativeY = self._calculateRelativePosition(x, y)
-        button.place(x=relativeX, y=relativeY, height=10, width=10) 
+        button.place(x=relativeX, y=relativeY) 
 
     def updateMyselfPosition(self, x: int, y: int, z: int):
         relativeX, relativeY = self._calculateRelativePosition(x, y)
