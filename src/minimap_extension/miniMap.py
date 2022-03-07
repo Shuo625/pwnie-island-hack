@@ -51,7 +51,8 @@ class MiniMap:
         self.gamemap_width = 80000
         self.gamemap_height = 80000
 
-        self.zoom = self.gamemap_width * 2 / self.window_width
+        self.width_zoom = self.gamemap_width * 2 / self.window_width
+        self.height_zoom = self.gamemap_height * 2 / self.window_height
 
         # set the position of the window to the center of the screen
         self.root.geometry(f'{self.window_width}x{self.window_height}')
@@ -107,8 +108,8 @@ class MiniMap:
         self.root.mainloop()
 
     def _calculateRelativePosition(self, x, y):
-        relativeX = int((x + self.gamemap_width)/2 / self.zoom)
-        relativeY = int((y + self.gamemap_height)/2 / self.zoom)
+        relativeX = int((x + self.gamemap_width) / self.width_zoom)
+        relativeY = int((y + self.gamemap_height) / self.height_zoom)
 
         return relativeX, relativeY
 
