@@ -29,9 +29,9 @@ class MoveableLabel:
         self.x = x
         self.y = y
         self.canvas = canvas
-        self.img = tk.PhotoImage(img_path)
-        self.img = self.img.subsample(30, 30)
-        self.label = canvas.create_image(x, y, image=self.img)
+        self.img = tk.PhotoImage(file=img_path)
+        self.img = self.img.subsample(10, 10)
+        self.label = self.canvas.create_image(x, y, image=self.img)
 
     def move(self, newX, newY):
         self.canvas.move(self.label, newX - self.x, newY - self.y)
@@ -44,9 +44,9 @@ class MiniMap:
         self.root = tk.Tk()
         self.root.title(title)
 
-        background_img = tk.PhotoImage(file=IconImage['BACKGROUND'])
-        self.window_width = background_img.width()
-        self.window_height = background_img.height()
+        self.background_img = tk.PhotoImage(file=IconImage['BACKGROUND'])
+        self.window_width = self.background_img.width()
+        self.window_height = self.background_img.height()
         
         self.gamemap_width = 80000
         self.gamemap_height = 80000
@@ -60,9 +60,9 @@ class MiniMap:
         self.canvas.pack()
 
         # Add background after canvas to show background above canvas
-        backgraound = tk.Label(self.root, image=background_img)
-        backgraound.image = background_img
-        backgraound.place(x=0, y=0, relheight=1, relwidth=1)
+        self.backgraound = self.canvas.create_image(0, 0, image=self.background_img, anchor='nw')
+
+        self.master = self.canvas
 
         self.moveable_labels = {}
 
@@ -73,8 +73,7 @@ class MiniMap:
 
         img = tk.PhotoImage(file=IconImage['LANDMARK'])
         smallImg = img.subsample(40,40)
-        self.imgs.append(smallImg)
-        button = tk.Button(self.root, image=smallImg, command=callback)
+        button = tk.Button(self.master, image=smallImg, command=callback)
         # Add a reference as an attribute to avoid img from being destoried by gc
         button.image = smallImg
         Hovertip(button, name)
@@ -89,7 +88,7 @@ class MiniMap:
         
         img = tk.PhotoImage(file = IconImage['EGG'])
         smallImg = img.subsample(40, 40)
-        button = tk.Button(self.root, image=smallImg, command=callback)
+        button = tk.Button(self.master, image=smallImg, command=callback)
         # Add a reference as an attribute to avoid img from being destoried by gc
         button.image = smallImg
         Hovertip(button, name)
