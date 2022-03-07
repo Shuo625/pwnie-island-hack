@@ -1,8 +1,13 @@
 # sudo apt-get install python3-tk
 # sudo apt-get install idle3
 import tkinter as tk
+import os
 from idlelib.tooltip import Hovertip
+
 from .gameProtocol import GameProtocol
+
+
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 Color = {
@@ -12,8 +17,8 @@ Color = {
 }
 
 IconImage = {
-    'LANDMARK': './imgs/landmark.png',
-    'EGG': './imgs/egg.png'
+    'LANDMARK': os.path.join(DIR, 'imgs/landmark.png'),
+    'EGG': os.path.join(DIR, 'imgs/egg.png')
 }
 
 
