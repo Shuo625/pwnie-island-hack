@@ -100,7 +100,7 @@ class MiniMap:
     def updateMyselfPosition(self, x: int, y: int, z: int):
         relativeX, relativeY = self._calculateRelativePosition(x, y)
         if 'myself' not in self.moveable_labels.keys():
-            self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, Color['MYSELF'], self.canvas)
+            self.moveable_labels['myself'] = MoveableLabel(relativeX, relativeY, IconImage['MYSELF'], self.canvas)
         else:
             self.moveable_labels['myself'].move(relativeX, relativeY)
 
