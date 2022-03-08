@@ -128,12 +128,25 @@ void commandShowEggs() {
     message += std::to_string(2939.00);
     
     GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
-
+    
     // Construct a message string sent to python server
     message = "";
     message += "/showEggs";
     message += " ";
     message += "Fifth_Egg ";
+    message += std::to_string(1522.00);
+    message += " ";
+    message += std::to_string(14966.00);
+    message += " ";
+    message += std::to_string(7022.00);
+    
+    GameProtocol::call_remote_command(message, "127.0.0.1", 8081);
+
+    // Construct a message string sent to python server
+    message = "";
+    message += "/showEggs";
+    message += " ";
+    message += "Sixth_Egg ";
     message += std::to_string(48404.00);
     message += " ";
     message += std::to_string(28117.00);
@@ -146,7 +159,7 @@ void commandShowEggs() {
     message = "";
     message += "/showEggs";
     message += " ";
-    message += "Sixth_Egg ";
+    message += "Seventh_Egg ";
     message += std::to_string(65225.00);
     message += " ";
     message += std::to_string(-5740.00);
@@ -159,7 +172,7 @@ void commandShowEggs() {
     message = "";
     message += "/showEggs";
     message += " ";
-    message += "Seventh_Egg ";
+    message += "Eighth_Egg ";
     message += std::to_string(-51570.00);
     message += " ";
     message += std::to_string(-61215.00);
@@ -172,7 +185,7 @@ void commandShowEggs() {
     message = "";
     message += "/showEggs";
     message += " ";
-    message += "Eighth_Egg ";
+    message += "Ninth_Egg ";
     message += std::to_string(24512.00);
     message += " ";
     message += std::to_string(69682.00);
