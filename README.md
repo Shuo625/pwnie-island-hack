@@ -7,6 +7,8 @@ Make a directory called *build* at this directory which will contain all of comp
 
 Make a link file called *game* linking to the directory that contains the executable file of game using command `ln -s`.
 
+Download necessary python libraries using `sudo apt-get install python3-tk`, `sudo apt-get install idle3`.
+
 ### Usage
 Compile Codes
 ```bash
