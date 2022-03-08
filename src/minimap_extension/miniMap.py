@@ -10,11 +10,6 @@ from .gameProtocol import GameProtocol
 DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-Color = {
-    'LANDMARK': 'blue',
-    'MYSELF': 'green',
-    'ENEMY': 'red'
-}
 
 IconImage = {
     'LANDMARK': os.path.join(DIR, 'imgs/landmark.png'),
